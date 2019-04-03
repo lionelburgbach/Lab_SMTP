@@ -9,6 +9,15 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.utf8</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
