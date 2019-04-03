@@ -1,5 +1,7 @@
 package protocol;
 
+import model.mail.Message;
+import model.mail.Person;
 import model.prank.Prank;
 
 import java.io.*;
@@ -18,6 +20,8 @@ public class SmtpClient implements ISmtpClient {
 
     private List<Prank> prank;
 
+    public static final String RETURN = "\r\n";
+
     private Socket socket;
     private PrintWriter writer;
     private BufferedReader reader;
@@ -32,7 +36,6 @@ public class SmtpClient implements ISmtpClient {
     @Override
     public void sendEmail() {
 
-
         try {
             LOG.info("Sending message via SMTP");
 
@@ -42,27 +45,63 @@ public class SmtpClient implements ISmtpClient {
 
             reader.readLine();
 
-            writer.write(Protocol.CMD_HELLO + "\r\n");
+            writer.write(Protocol.CMD_HELLO + RETURN);
             writer.flush();
 
             String line = reader.readLine();
-            System.out.println(line);
 
-            //note: maybe this is not general enough
+            //Note: does it always end with 250- ?
             while (line.startsWith("250-")){
                 line = reader.readLine();
-                System.out.println(line);
             }
 
-            System.out.println("(our turn now)");
+            for(Prank p : prank){
 
+                writer.write(Protocol.CMD_MAIL_FROM + p.getVictimSender().getAddress() + RETURN);
+                writer.flush();
+                reader.readLine();
 
-        }catch(IOException e){
+                ArrayList<String> victims = new ArrayList<>();
+                ArrayList<String> cc = new ArrayList<>();
+
+                for(Person person : p.getVictimsRecip()){
+                    victims.add(person.getAddress());
+                    writer.write(Protocol.CMD_RCPT_TO + person.getAddress() + RETURN);
+
+                    writer.flush();
+                    reader.readLine();
+                }
+
+                for(Person person : p.getWitnessReceip()){
+                    cc.add(person.getAddress());
+                    writer.write(Protocol.CMD_RCPT_TO + person.getAddress() + RETURN);
+                    writer.flush();
+                    reader.readLine();
+                }
+
+                writer.write(Protocol.CMD_DATA + RETURN);
+                writer.flush();
+                reader.readLine();
+
+                Message message = new Message(p.getVictimSender().getAddress(), victims, cc , p.getMessage());
+
+                writer.write(message.forgeMessage());
+                writer.flush();
+
+                writer.write(Protocol.CMD_END_DATA + RETURN);
+                writer.flush();
+                reader.readLine();
+
+            }
+
+            writer.write(Protocol.CMD_QUIT + RETURN);
+            writer.flush();
+            socket.close();
+            writer.close();
+            reader.close();
+
+        } catch (IOException e) {
             e.printStackTrace();
-            return;
         }
-
-
-        return;
     }
 }

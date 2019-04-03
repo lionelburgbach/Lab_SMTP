@@ -23,7 +23,7 @@ public class Main {
         Prank prank = new Prank(kim, victims, witnesses, message);
         List<Prank> pranks = new LinkedList<>();
         pranks.add(prank);
-
+        //run ncat listening on port 2323 to test this
         SmtpClient smtp = new SmtpClient("127.0.0.1", 2323, pranks);
         smtp.sendEmail();
 
