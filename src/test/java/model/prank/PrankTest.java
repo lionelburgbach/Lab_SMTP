@@ -1,4 +1,4 @@
-package model.Prank;
+package model.prank;
 
 import model.mail.Person;
 import model.prank.Prank;
