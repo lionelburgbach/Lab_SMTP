@@ -1,14 +1,15 @@
-import model.mail.Person;
-import model.prank.Prank;
+import configuration.ConfigurationManager;
+import model.prank.PrankGenerator;
 import protocol.SmtpClient;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.io.IOException;
 
 public class Main {
 
+    /*
     public static void main(String[] args){
 
+    }
         Person kim = new Person("Kim", "Jong-un", "Kim.Jung-un@korea-dpr.com");
         Person trump = new Person("Donald", "Trump", "donald.trump@whitehouse.gov");
         Person trumpVariant = new Person("Donald", "Trump", "trump@whitehouse.gov");
@@ -25,8 +26,13 @@ public class Main {
         pranks.add(prank);
         //run ncat listening on port 2323 to test this
         SmtpClient smtp = new SmtpClient("127.0.0.1", 2323, pranks);
-        smtp.sendEmail();
+        smtp.sendEmail();*/
 
 
+    public static void main(String[] args) throws IOException {
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        PrankGenerator prankGenerator = new PrankGenerator(configurationManager);
+        SmtpClient smtpClient = new SmtpClient(configurationManager.getSmtpServerIpAddress(), configurationManager.getSmtpServerPort(), prankGenerator.generatePrank());
+        smtpClient.sendEmail();
     }
 }
