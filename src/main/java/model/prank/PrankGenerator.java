@@ -16,7 +16,7 @@ public class PrankGenerator {
         this.configurationManager = configurationManager;
     }
 
-    public List<Prank> generatePrank() {
+    public List<Prank> generatePrank(){
 
         ArrayList<Prank> prank = new ArrayList<Prank>();
 
@@ -30,7 +30,7 @@ public class PrankGenerator {
         int sizeGroup = victims.size()/nbrGroups;
         int sizeLastGroup = sizeGroup + (victims.size() % nbrGroups);
 
-        //Check if the size of a group is big enough, if it's not, decrese nbrGroups
+        //Check if the size of a group is big enough, if it's not, decrement nbrGroups
         if(sizeGroup < 3){
 
             do{
