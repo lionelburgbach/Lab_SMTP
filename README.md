@@ -30,7 +30,7 @@ You have to change files in the directroy src/main/resources.
 
 - **config.properties** contains the IPaddress for the smtp server, the port, the number of groupe and the carbon copy (if you want to receive emails.)
 
-- **messages.utf8** contains messages you want send
+- **messages.utf8** contains messages you want to send
 
   It has to begin with **Subject** : <subject> and end with **==**
 
