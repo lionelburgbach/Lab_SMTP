@@ -1,4 +1,4 @@
-##Description of Lab_SMTP
+## Description of Lab_SMTP
 
 This project is a SMTP client written in Java. It's possible to send forged emails to a group (like a Prank). The sender is chosen randomly inside a group (a groupe contains at least 3 people). You can edit the configuration with files victims.utf8, messages.utf8 and config.properties.
 
@@ -6,7 +6,7 @@ This project is a SMTP client written in Java. It's possible to send forged emai
 
 The mock server used in this project is **https://github.com/tweakers/MockMock**, we only use the jar file here.
 
-###With Docker
+### With Docker
 
 - To use this Client smtp with docker, you just have to go in the directory **DockerMockMock** and use this two commands:
   - sh build-image.sh (you have to be in the directory with these files)
@@ -14,7 +14,7 @@ The mock server used in this project is **https://github.com/tweakers/MockMock**
 
 Docker will build a image with the Mock server and it can be used with interface web on port **8080**. To access this server, you have to use the Ip from docker (ex: 192.168.99.100:8080 in mozzila). You can also have un acces by terminal with nectat on port **25000** (ex: nc 192.168.99.100 25000). You can change these ports in the file run-container.sh.
 
-###Without Docker
+### Without Docker
 
 If you want use the Mocker server without Docker, you can juste use the file .jar in the directory DockerMockMocker/src/ with the cmd : **java -jar MockMock.jar -p 25000 -p 8080**
 
