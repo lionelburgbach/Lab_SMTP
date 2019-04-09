@@ -2,6 +2,14 @@
 
 This project is a SMTP client written in Java. It's possible to send forged emails to a group (like a Prank). The sender is chosen randomly inside a group (a groupe contains at least 3 people). You can edit the configuration with files victims.utf8, messages.utf8 and config.properties.
 
+## Client
+
+Lab_SMTP is a maven project, if you want run it with no IDE, you can use the jar file in the directory target. You have to change configuration files and in the main directory (where you have pom.xml) use the command **mvn clean package**.
+
+You will find **SMTP-1.0-SNAPSHOT-standalone.jar**
+
+To run the prank you just have to use the cmd : **java -jar SMTP-1.0-SNAPSHOT-standalone.jar**
+
 ## Mock server
 
 The mock server used in this project is **https://github.com/tweakers/MockMock**, we only use the jar file here.
