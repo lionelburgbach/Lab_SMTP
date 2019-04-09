@@ -23,8 +23,8 @@ public class Message {
     }
 
     /**
-     * Forge an message with syntaxe for an email
-     * @return
+     * Forge a message with an email syntaxe
+     * @return  a message with an email syntaxe
      */
     public String forgeMessage(){
 
