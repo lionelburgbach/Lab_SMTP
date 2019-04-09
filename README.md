@@ -6,9 +6,7 @@ This project is a SMTP client written in Java. It's possible to send forged emai
 
 Lab_SMTP is a maven project, if you want run it with no IDE, you can use the jar file in the directory target. You have to change configuration files and in the main directory (where you have pom.xml) use the command **mvn clean package**.
 
-You will find **SMTP-1.0-SNAPSHOT-standalone.jar**
-
-To run the prank you just have to use the cmd : **java -jar SMTP-1.0-SNAPSHOT-standalone.jar**
+To run the prank you just have to use the cmd : **java -jar target/SMTP-1.0-SNAPSHOT-standalone.jar**
 
 ## Mock server
 
