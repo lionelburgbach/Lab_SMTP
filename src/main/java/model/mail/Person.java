@@ -1,5 +1,8 @@
 package model.mail;
 
+/**
+ * Represent a Person
+ */
 public class Person {
 
     private String firstName;

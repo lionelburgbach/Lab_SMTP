@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Build a prank
+ */
 public class PrankGenerator {
 
     private ConfigurationManager configurationManager;

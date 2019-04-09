@@ -5,6 +5,9 @@ import model.mail.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Use to build a Prank
+ */
 public class Prank {
 
     private Person victimSender;

@@ -50,7 +50,6 @@ public class SmtpClient implements ISmtpClient {
 
             String line = reader.readLine();
 
-            //Note: does it always end with 250- ?
             while (line.startsWith("250-")){
                 line = reader.readLine();
             }

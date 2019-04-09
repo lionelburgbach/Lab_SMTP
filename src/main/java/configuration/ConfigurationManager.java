@@ -63,6 +63,7 @@ public class ConfigurationManager implements IConfigurationManager {
         String line;
         StringBuilder stringb = new StringBuilder();
         while((line = buffer.readLine())  != null) {
+            //We choose to use == as separator
             if(line.equals("==")){
                 messages.add(stringb.toString());
                 stringb = new StringBuilder();
@@ -91,6 +92,7 @@ public class ConfigurationManager implements IConfigurationManager {
             Pattern pattern = Pattern.compile("(.*)\\.(.*)@");
             Matcher matcher = pattern.matcher(addressMail);
             boolean found = matcher.find();
+            //if the email is like firstname.lastname@xxx.yy
             if(found){
                 String firstName = matcher.group(1);
                 firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1);
