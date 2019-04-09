@@ -54,6 +54,6 @@ We have 3 package here :
 
   - PrankGenerator return just a list of prank.
 
-- **protocol** conatins SmtpClient and the protocol
+- **protocol** contains SmtpClient and the protocol
 
   The Client will send every prank and close the connection.
