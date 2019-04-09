@@ -87,21 +87,20 @@ public class ConfigurationManager implements IConfigurationManager {
         FileInputStream file = new FileInputStream(filename);
         BufferedReader buffer = new BufferedReader(new InputStreamReader(file));
         String addressMail;
-        String firstName;
-        String lastName;
         while((addressMail = buffer.readLine()) != null){
             Pattern pattern = Pattern.compile("(.*)\\.(.*)@");
             Matcher matcher = pattern.matcher(addressMail);
-            firstName = "";
-            lastName = "";
             boolean found = matcher.find();
             if(found){
-                firstName = matcher.group(1);
+                String firstName = matcher.group(1);
                 firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1);
-                lastName = matcher.group(2);
+                String lastName = matcher.group(2);
                 lastName = lastName.substring(0,1).toUpperCase() + lastName.substring(1);
+                victims.add(new Person(firstName, lastName, addressMail));
             }
-            victims.add(new Person(firstName, lastName, addressMail));
+            else {
+                victims.add(new Person(addressMail));
+            }
         }
 
         return victims;

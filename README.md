@@ -1,24 +1,53 @@
-# Teaching-HEIGVD-RES-2019-Labo-SMTP
+##Description of Lab_SMTP
 
-## Deliverables
+This project is a SMTP client written in Java. It's possible to send forged emails to a group (like a Prank). The sender is chosen randomly inside a group (a groupe contains at least 3 people). You can edit the configuration with files victims.utf8, messages.utf8 and config.properties.
 
-You will deliver the results of your lab in a GitHub repository. You do not have a fork a specific repo, you can create one from scratch.
+## Mock server
 
-Your repository should contain both the source code of your Java project and your report. Your report should be a single `README.md` file, located at the root of your repository. The images should be placed in a `figures` directory.
+The mock server used in this project is **https://github.com/tweakers/MockMock**, we only use the jar file here.
 
-Your report MUST include the following sections:
+###With Docker
 
-* **A brief description of your project**: if people exploring GitHub find your repo, without a prior knowledge of the RES course, they should be able to understand what your repo is all about and whether they should look at it more closely.
+- To use this Client smtp with docker, you just have to go in the directory **DockerMockMock** and use this two commands:
+  - sh build-image.sh (you have to be in the directory with these files)
+  - sh run-container.sh
 
-* **Instructions for setting up a mock SMTP server (with Docker)**. The user who wants to experiment with your tool but does not really want to send pranks immediately should be able to use a mock SMTP server. For people who are not familiar with this concept, explain it to them in simple terms. Explain which mock server you have used and how you have set it up.
+Docker will build a image with the Mock server and it can be used with interface web on port **8080**. To access this server, you have to use the Ip from docker (ex: 192.168.99.100:8080 in mozzila). You can also have un acces by terminal with nectat on port **25000** (ex: nc 192.168.99.100 25000). You can change these ports in the file run-container.sh.
 
-* **Clear and simple instructions for configuring your tool and running a prank campaign**. If you do a good job, an external user should be able to clone your repo, edit a couple of files and send a batch of e-mails in less than 10 minutes.
+###Without Docker
 
-* **A description of your implementation**: document the key aspects of your code. It is probably a good idea to start with a class diagram. Decide which classes you want to show (focus on the important ones) and describe their responsibilities in text. It is also certainly a good idea to include examples of dialogues between your client and an SMTP server (maybe you also want to include some screenshots here).
-## References
+If you want use the Mocker server without Docker, you can juste use the file .jar in the directory DockerMockMocker/src/ with the cmd : **java -jar MockMock.jar -p 25000 -p 8080**
 
-* [MockMock server](<https://github.com/tweakers/MockMock>) on GitHub
-* The [mailtrap](<https://mailtrap.io/>) online service for testing SMTP
-* The [SMTP RFC](<https://tools.ietf.org/html/rfc5321#appendix-D>), and in particular the [example scenario](<https://tools.ietf.org/html/rfc5321#appendix-D>)
-* Testing SMTP with TLS: `openssl s_client -connect smtp.mailtrap.io:2525 -starttls smtp -crl`
+## Configuration for a good Prank campaign
 
+You have to change files in the directroy src/main/resources.
+
+- **config.properties** contains the IPaddress for the smtp server, the port, the number of groupe and the carbon copy (if you want to receive emails.)
+
+- **messages.utf8** contains messages you want send
+
+  It has to begin with **Subject** : <subject> and end with **==**
+
+  You can write what ever you want.
+
+- **victims.utf8** contains emails addresses for the prank. You have to write one per line. It'should be large enough, because a group need at least 3 people. If victims are too small, the number of group will be reduce.
+
+## Implementation
+
+We have 3 package here : 
+
+- **configuration** contains the configuration manager. 
+
+  These class are used to read files like properties, victims and messages.
+
+- **model** contains two packages, it's for the prank. 
+
+  - mail is used to modelize Person, Message and Group
+
+  - prank is used to modelize Prand and PrankGenerator
+
+    PrankGenerator return just a list of prank.
+
+- **protocol** conatins SmtpClient and the protocol
+
+  The Client will send every prank and close the connection.
