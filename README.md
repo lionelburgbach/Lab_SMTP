@@ -52,7 +52,7 @@ We have 3 package here :
 
   - prank is used to modelize Prand and PrankGenerator
 
-  - PrankGenerator return just a list of prank.
+    - PrankGenerator return just a list of prank.
 
 - **protocol** contains SmtpClient and the protocol
 
