@@ -13,7 +13,7 @@ public class PrankGeneratorTest {
     @Test
     public void sizeOfLastGroupShouldbe10() throws IOException {
 
-        PrankGenerator prank = new PrankGenerator(new ConfigurationManager());
+        PrankGenerator prank = new PrankGenerator(new ConfigurationManager("resourcesTest"));
         List<Prank> list = prank.generatePrank();
 
         //16 because we removed the sender one

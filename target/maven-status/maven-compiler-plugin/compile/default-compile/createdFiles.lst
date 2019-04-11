@@ -1,11 +1,11 @@
-Main.class
 model/prank/Prank.class
 configuration/ConfigurationManager.class
-model/prank/PrankGenerator.class
 model/mail/Person.class
 model/mail/Group.class
 configuration/IConfigurationManager.class
 protocol/Protocol.class
-protocol/ISmtpClient.class
 protocol/SmtpClient.class
+Main.class
+model/prank/PrankGenerator.class
+protocol/ISmtpClient.class
 model/mail/Message.class

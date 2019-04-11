@@ -49,7 +49,6 @@ public class SmtpClient implements ISmtpClient {
             writer.flush();
 
             String line = reader.readLine();
-
             while (line.startsWith("250-")){
                 line = reader.readLine();
             }
@@ -98,6 +97,8 @@ public class SmtpClient implements ISmtpClient {
             socket.close();
             writer.close();
             reader.close();
+
+            LOG.info("Close connection");
 
         } catch (IOException e) {
             e.printStackTrace();

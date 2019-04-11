@@ -13,7 +13,7 @@ public class PersonTest {
     @Test
     public void firstPersonShouldBeOk() throws IOException {
 
-        ConfigurationManager configurationManager = new ConfigurationManager();
+        ConfigurationManager configurationManager = new ConfigurationManager( "resourcesTest");
         List<Person> list = configurationManager.getVictims();
 
         assertEquals(list.get(0).getFirstName(), "Alexandre");

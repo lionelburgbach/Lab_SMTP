@@ -20,10 +20,10 @@ public class ConfigurationManager implements IConfigurationManager {
     private List<Person> witnessesToCC;
 
 
-    public ConfigurationManager() throws IOException {
+    public ConfigurationManager(String pathResources) throws IOException {
 
         Properties properties = new Properties();
-        FileInputStream file = new FileInputStream("./src/main/resources/config.properties");
+        FileInputStream file = new FileInputStream(pathResources + "/config.properties");
         properties.load(file);
         smtpServerIpAddress = properties.getProperty("smtpServerAddress");
         smtpServerPort = Integer.parseInt(properties.getProperty("smtpServerPort"));
@@ -35,8 +35,8 @@ public class ConfigurationManager implements IConfigurationManager {
             witnessesToCC.add(new Person(s));
         }
 
-        victims = victims("./src/main/resources/victims.utf8");
-        messages = messages("./src/main/resources/messages.utf8");
+        victims = victims(pathResources + "/victims.utf8");
+        messages = messages(pathResources + "/messages.utf8");
     }
 
     @Override
