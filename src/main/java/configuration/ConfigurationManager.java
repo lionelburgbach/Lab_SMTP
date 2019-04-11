@@ -23,7 +23,7 @@ public class ConfigurationManager implements IConfigurationManager {
     public ConfigurationManager(String pathResources) throws IOException {
 
         Properties properties = new Properties();
-        FileInputStream file = new FileInputStream(pathResources + "/config.properties");
+        FileInputStream file = new FileInputStream(pathResources + "config.properties");
         properties.load(file);
         smtpServerIpAddress = properties.getProperty("smtpServerAddress");
         smtpServerPort = Integer.parseInt(properties.getProperty("smtpServerPort"));
@@ -35,8 +35,8 @@ public class ConfigurationManager implements IConfigurationManager {
             witnessesToCC.add(new Person(s));
         }
 
-        victims = victims(pathResources + "/victims.utf8");
-        messages = messages(pathResources + "/messages.utf8");
+        victims = victims(pathResources + "victims.utf8");
+        messages = messages(pathResources + "messages.utf8");
     }
 
     @Override
