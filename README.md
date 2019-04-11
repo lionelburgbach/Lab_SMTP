@@ -28,7 +28,7 @@ If you want use the Mocker server without Docker, you can juste use the file .ja
 
 ## Configuration for a good Prank campaign
 
-You have to change files in the directroy src/main/resources.
+You have to change files in the directroy src/main/resources or creat a new folder 
 
 - **config.properties** contains the IPaddress for the smtp server, the port, the number of groupe and the carbon copy (if you want to receive emails.)
 
