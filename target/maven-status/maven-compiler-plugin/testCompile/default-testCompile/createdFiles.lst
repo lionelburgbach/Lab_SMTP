@@ -1,1 +1,4 @@
-model\Prank\PrankTest.class
+configuration/ConfigurationManagerTest.class
+model/prank/PrankTest.class
+model/prank/PrankGeneratorTest.class
+model/mail/PersonTest.class

@@ -111,7 +111,7 @@ public class SmtpClient implements ISmtpClient {
                     LOG.log(Level.SEVERE, "The smtp server requires authentification:\n" +
                             "Here is the error returned by the server: " + response +
                             "\nMaybe you can solve this problem by modifying the config file: " +
-                            ConfigurationManager.configFilePath);
+                            configurationManager.getConfigFilePath());
                     socket.close();
                     writer.close();
                     reader.close();
@@ -163,6 +163,8 @@ public class SmtpClient implements ISmtpClient {
             socket.close();
             writer.close();
             reader.close();
+
+            LOG.info("Close connection");
 
         } catch (IOException e) {
             e.printStackTrace();

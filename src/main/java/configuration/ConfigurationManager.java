@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 
 public class ConfigurationManager implements IConfigurationManager {
 
-    public final static String configFilePath = "./src/main/resources/config.properties";
     private Properties properties;
     private String smtpServerIpAddress;
     private int smtpServerPort;
@@ -20,12 +19,15 @@ public class ConfigurationManager implements IConfigurationManager {
     private List<String> messages;
     private List<Person> victims;
     private List<Person> witnessesToCC;
+    private String configFilePath;
 
 
-    public ConfigurationManager() throws IOException {
+    public ConfigurationManager(String pathResources) throws IOException {
 
         properties = new Properties();
+        configFilePath = pathResources + "config.properties";
         FileInputStream file = new FileInputStream(configFilePath);
+
         properties.load(file);
         smtpServerIpAddress = properties.getProperty("smtpServerAddress");
         smtpServerPort = Integer.parseInt(properties.getProperty("smtpServerPort"));
@@ -37,8 +39,12 @@ public class ConfigurationManager implements IConfigurationManager {
             witnessesToCC.add(new Person(s));
         }
 
-        victims = victims("./src/main/resources/victims.utf8");
-        messages = messages("./src/main/resources/messages.utf8");
+        victims = victims(pathResources + "victims.utf8");
+        messages = messages(pathResources + "messages.utf8");
+    }
+
+    public String getConfigFilePath(){
+        return  configFilePath;
     }
 
     @Override
@@ -82,6 +88,7 @@ public class ConfigurationManager implements IConfigurationManager {
         String line;
         StringBuilder stringb = new StringBuilder();
         while((line = buffer.readLine())  != null) {
+            //We choose to use == as separator
             if(line.equals("==")){
                 messages.add(stringb.toString());
                 stringb = new StringBuilder();
@@ -106,21 +113,21 @@ public class ConfigurationManager implements IConfigurationManager {
         FileInputStream file = new FileInputStream(filename);
         BufferedReader buffer = new BufferedReader(new InputStreamReader(file));
         String addressMail;
-        String firstName;
-        String lastName;
         while((addressMail = buffer.readLine()) != null){
             Pattern pattern = Pattern.compile("(.*)\\.(.*)@");
             Matcher matcher = pattern.matcher(addressMail);
-            firstName = "";
-            lastName = "";
             boolean found = matcher.find();
+            //if the email is like firstname.lastname@xxx.yy
             if(found){
-                firstName = matcher.group(1);
+                String firstName = matcher.group(1);
                 firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1);
-                lastName = matcher.group(2);
+                String lastName = matcher.group(2);
                 lastName = lastName.substring(0,1).toUpperCase() + lastName.substring(1);
+                victims.add(new Person(firstName, lastName, addressMail));
             }
-            victims.add(new Person(firstName, lastName, addressMail));
+            else {
+                victims.add(new Person(addressMail));
+            }
         }
 
         return victims;

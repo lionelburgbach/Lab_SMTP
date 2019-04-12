@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Build a prank
+ */
 public class PrankGenerator {
 
     private ConfigurationManager configurationManager;
@@ -30,10 +33,23 @@ public class PrankGenerator {
         int sizeGroup = victims.size()/nbrGroups;
         int sizeLastGroup = sizeGroup + (victims.size() % nbrGroups);
 
+        //Check if the size of a group is big enough, if it's not, decrement nbrGroups
         if(sizeGroup < 3){
-            //maybe not all people will be prank
-            nbrGroups = victims.size()/3;
-            sizeGroup = victims.size()/3;
+
+            do{
+
+                nbrGroups -= 1;
+
+                if(nbrGroups == 0){
+                    throw new IllegalArgumentException("Number of victims is too small.");
+                }
+                else{
+                    sizeGroup = victims.size()/nbrGroups;
+                }
+
+            }while(sizeGroup < 3 );
+
+            sizeGroup = victims.size()/nbrGroups;
             sizeLastGroup = sizeGroup + (victims.size() % nbrGroups);
         }
 

@@ -11,12 +11,12 @@ import static org.junit.Assert.*;
 public class PrankGeneratorTest {
 
     @Test
-    public void sizeOfLastGroupShouldbe16() throws IOException {
+    public void sizeOfLastGroupShouldbe10() throws IOException {
 
-        PrankGenerator prank = new PrankGenerator(new ConfigurationManager());
+        PrankGenerator prank = new PrankGenerator(new ConfigurationManager("resourcesTest"));
         List<Prank> list = prank.generatePrank();
 
         //16 because we removed the sender one
-        assertEquals(list.get(list.size()-1).getVictimsRecip().size(),16);
+        assertEquals(list.get(list.size()-1).getVictimsRecip().size(),10);
     }
 }

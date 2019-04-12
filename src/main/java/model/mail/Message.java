@@ -3,6 +3,9 @@ package model.mail;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represent a message
+ */
 public class Message {
 
     private String from;
@@ -19,6 +22,10 @@ public class Message {
         this.subject = subject;
     }
 
+    /**
+     * Forge a message with an email syntaxe
+     * @return  a message with an email syntaxe
+     */
     public String forgeMessage(){
 
         StringBuilder s = new StringBuilder();
