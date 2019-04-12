@@ -31,8 +31,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ConfigurationManager configurationManager = new ConfigurationManager();
+        System.out.println("qnhheé");
         PrankGenerator prankGenerator = new PrankGenerator(configurationManager);
-        SmtpClient smtpClient = new SmtpClient(configurationManager.getSmtpServerIpAddress(), configurationManager.getSmtpServerPort(), prankGenerator.generatePrank());
+        SmtpClient smtpClient = new SmtpClient(configurationManager, prankGenerator.generatePrank());
         smtpClient.sendEmail();
     }
 }

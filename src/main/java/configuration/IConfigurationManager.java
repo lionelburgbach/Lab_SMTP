@@ -26,6 +26,24 @@ public interface IConfigurationManager {
     public int getSmtpServerPort();
 
     /**
+     * Returns whether we use esmtp
+     * @return true is we use esmtp, false is we use basic smtp
+     */
+    public boolean usingESMTP();
+
+    /**
+     *
+     * @return the login used for authentification. null is there is none.
+     */
+    public String getBase64Login();
+
+    /**
+     *
+     * @return the password used for authentification. null is there is none.
+     */
+    public String getBase64Password();
+
+    /**
      * Return the number of groups
      *
      * @return the number of groups

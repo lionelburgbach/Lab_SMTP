@@ -4,6 +4,7 @@ import model.mail.Person;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -11,7 +12,8 @@ import java.util.regex.Pattern;
 
 public class ConfigurationManager implements IConfigurationManager {
 
-
+    public final static String configFilePath = "./src/main/resources/config.properties";
+    private Properties properties;
     private String smtpServerIpAddress;
     private int smtpServerPort;
     private int numberOfGroups;
@@ -22,8 +24,8 @@ public class ConfigurationManager implements IConfigurationManager {
 
     public ConfigurationManager() throws IOException {
 
-        Properties properties = new Properties();
-        FileInputStream file = new FileInputStream("./src/main/resources/config.properties");
+        properties = new Properties();
+        FileInputStream file = new FileInputStream(configFilePath);
         properties.load(file);
         smtpServerIpAddress = properties.getProperty("smtpServerAddress");
         smtpServerPort = Integer.parseInt(properties.getProperty("smtpServerPort"));
@@ -47,6 +49,23 @@ public class ConfigurationManager implements IConfigurationManager {
     @Override
     public int getSmtpServerPort() {
         return smtpServerPort;
+    }
+
+    @Override
+    public boolean usingESMTP() {
+        String value = properties.getProperty("usingEsmtpWithLoginAuthentification");
+        if (value == null) return false;
+        else return Boolean.parseBoolean(value);
+    }
+
+    @Override
+    public String getBase64Login() {
+        return Base64.getEncoder().encodeToString(properties.getProperty("esmptLogin").getBytes());
+    }
+
+    @Override
+    public String getBase64Password() {
+        return Base64.getEncoder().encodeToString(properties.getProperty("esmtpPassword").getBytes());
     }
 
     @Override
