@@ -13,7 +13,7 @@ public class ConfigurationManagerTest {
     @Test
      public void itShouldHave4Message() throws IOException {
 
-        ConfigurationManager config = new ConfigurationManager("resourcesTest/");
+        ConfigurationManager config = new ConfigurationManager("./resourcesTest/");
         List<String> list = new ArrayList<String>(config.getMessages());
         assertEquals(list.size(),4);
     }
@@ -21,7 +21,7 @@ public class ConfigurationManagerTest {
     @Test
     public void itShouldHave83Victims() throws IOException {
 
-        ConfigurationManager config = new ConfigurationManager("resourcesTest/");
+        ConfigurationManager config = new ConfigurationManager("./resourcesTest/");
         List<Person> list = new ArrayList<Person>(config.getVictims());
         assertEquals(list.size(), 83);
     }
@@ -29,7 +29,7 @@ public class ConfigurationManagerTest {
     @Test
     public void itShouldHave2WinToCC() throws IOException {
 
-        ConfigurationManager config = new ConfigurationManager("resourcesTest/");
+        ConfigurationManager config = new ConfigurationManager("./resourcesTest/");
         List<Person> list = new ArrayList<Person>(config.getWitnessesToCC());
         assertEquals(list.size(), 2);
     }
