@@ -74,6 +74,15 @@ public class SmtpClient implements ISmtpClient {
 
             //Si l'authentification est configurée, on utilise AUTH LOGIN
             if(configurationManager.usingESMTP()){
+                if(configurationManager.getBase64Login() == null ||
+                configurationManager.getBase64Password() == null){
+                    LOG.log(Level.SEVERE, "if using esmtp, login and password should also be setup in config file" +
+                            "\n aborting");
+                    socket.close();
+                    reader.close();
+                    writer.close();
+                    return;
+                }
                 writer.write(Protocol.CMD_AUTH_LOGIN + RETURN);
                 writer.flush();
                 System.out.println(Protocol.CMD_AUTH_LOGIN);
@@ -102,7 +111,8 @@ public class SmtpClient implements ISmtpClient {
 
             for(Prank p : prank){
 
-                writer.write(Protocol.CMD_MAIL_FROM + p.getVictimSender().getAddress() + RETURN);
+                writer.write(Protocol.CMD_MAIL_FROM + '<' + p.getVictimSender().getAddress() + '>' + RETURN);
+                System.out.println(Protocol.CMD_MAIL_FROM + p.getVictimSender().getAddress());
                 writer.flush();
                 String response = reader.readLine();
 
@@ -156,6 +166,7 @@ public class SmtpClient implements ISmtpClient {
                 line = reader.readLine();
                 System.out.println(line); //
 
+
             }
 
             writer.write(Protocol.CMD_QUIT + RETURN);
@@ -164,13 +175,11 @@ public class SmtpClient implements ISmtpClient {
             writer.close();
             reader.close();
 
-            LOG.info("Close connection");
+            LOG.info("Task finised: connection closed");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("done");
     }
 
     /**
