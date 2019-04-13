@@ -30,7 +30,7 @@ If you want use the Mocker server without Docker, you can juste use the file .ja
 
 You have to change files in the directroy src/main/resources or creat a new folder 
 
-- **config.properties** contains the IPaddress for the smtp server, the port, the number of groupe and the carbon copy (if you want to receive emails.)
+- **config.properties** contains the IPaddress for the smtp server, the port, the number of groupe and the carbon copy (if you want to receive emails.) If you want to use esmtp you should setup usingEsmtpWithLoginAuthentification to true. You should also add your login and pass with esmptLogin and esmtpPassword.
 
 - **messages.utf8** contains messages you want to send
 
