@@ -72,7 +72,7 @@ public class SmtpClient implements ISmtpClient {
                 System.out.println(line); //
             }
 
-            //Si l'authentification est configurée, on utilise AUTH LOGIN
+            //if authentification is setup, we use AUTH LOGIN
             if(configurationManager.usingESMTP()){
                 if(configurationManager.getBase64Login() == null ||
                 configurationManager.getBase64Password() == null){
@@ -112,7 +112,7 @@ public class SmtpClient implements ISmtpClient {
             for(Prank p : prank){
 
                 writer.write(Protocol.CMD_MAIL_FROM + '<' + p.getVictimSender().getAddress() + '>' + RETURN);
-                System.out.println(Protocol.CMD_MAIL_FROM + p.getVictimSender().getAddress());
+                System.out.println(Protocol.CMD_MAIL_FROM + '<' + p.getVictimSender().getAddress() + '>'); //
                 writer.flush();
                 String response = reader.readLine();
 
@@ -150,10 +150,17 @@ public class SmtpClient implements ISmtpClient {
                 }
 
                 writer.write(Protocol.CMD_DATA + RETURN);
-                System.out.println(Protocol.CMD_DATA + RETURN); //
+                System.out.println(Protocol.CMD_DATA); //
                 writer.flush();
                 line = reader.readLine();
                 System.out.println(line); //
+                if(errorCode(line) != 354){
+                    socket.close();
+                    reader.close();
+                    writer.close();
+                    LOG.log(Level.SEVERE, "Server Error: " + line);
+                    return;
+                }
 
                 Message message = new Message(p.getVictimSender().getAddress(), victims, cc , p.getMessage());
 
@@ -161,7 +168,9 @@ public class SmtpClient implements ISmtpClient {
                 System.out.println(message.forgeMessage()); //
                 writer.flush();
 
-                writer.write(Protocol.CMD_END_DATA + RETURN);
+                //writer.write(Protocol.CMD_END_DATA + RETURN);
+                writer.write(Protocol.CMD_END_DATA);
+                System.out.println(Protocol.CMD_END_DATA); //
                 writer.flush();
                 line = reader.readLine();
                 System.out.println(line); //
